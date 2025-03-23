@@ -1,0 +1,10 @@
+[Set this to false]
+
+enable_bed_respawn (test) bool false
+
+[Chat Messages]
+
+spawnpoint_msg (When spawnpoint is set) string "Spawnpoint is set"
+enable_spawnpoint_msg (Enable/Disable message) bool true
+bed_detroyed_msg (When a player takes over your bed) string "Your bed have been taken over by an other player"
+enable_bed_detroyed_msg (Enable/Disable message) bool true
