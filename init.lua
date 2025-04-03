@@ -10,7 +10,20 @@ local BED_TAKEN_OVER_MESSAGE = core.settings:get("bed_detroyed_msg") or "Your be
 
 -- Key suffix used to track if a player has died
 local DIED_FLAG_KEY_SUFFIX = "_died"
+local function respawn_player(player)
+  local player_name = player:get_player_name()
+  local died_flag = mod_storage:get_string(player_name .. DIED_FLAG_KEY_SUFFIX) or ""
+  if died_flag == "true" then
+    mod_storage:set_string(player_name .. DIED_FLAG_KEY_SUFFIX, "false") -- Reset flag
 
+    -- Retrieve stored bed position and set player's position
+    local bed_position = core.string_to_pos(mod_storage:get_string(player_name))
+    if bed_position then
+      player:set_pos(bed_position)
+      return true -- Indicate custom respawn handled
+      end
+    end
+end
 -- List of bed nodes to override (starts with basic beds and expands if mods are present)
 local bed_nodes = {
     "beds:bed",
@@ -98,8 +111,12 @@ if not original_bed_respawn_enabled then
   end
 if not core.settings:get_bool("aio_back_to_bed.deathscreen") then
     core.show_death_screen = function(player, reason) 
-        player:respawn()
-        end
+      if player:get_hp() == 0 then
+        mod_storage:set_string(player:get_player_name() .. DIED_FLAG_KEY_SUFFIX, "true")
+        respawn_player(player)
+        player:set_hp(20)
+      end
+    end
 end
 
   -- Track when a player dies to determine respawn location
@@ -110,17 +127,6 @@ end
 
   -- Handle player respawn to use their last bed spawn point
   core.register_on_respawnplayer(function(player)
-    local player_name = player:get_player_name()
-    local died_flag = mod_storage:get_string(player_name .. DIED_FLAG_KEY_SUFFIX) or ""
-    if died_flag == "true" then
-      mod_storage:set_string(player_name .. DIED_FLAG_KEY_SUFFIX, "false") -- Reset flag
-
-      -- Retrieve stored bed position and set player's position
-      local bed_position = core.string_to_pos(mod_storage:get_string(player_name))
-      if bed_position then
-        player:set_pos(bed_position)
-        return true -- Indicate custom respawn handled
-        end
-      end
+    respawn_player(player)
   end)
 end
