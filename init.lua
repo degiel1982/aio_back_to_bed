@@ -96,6 +96,9 @@ if not original_bed_respawn_enabled then
     -- Apply the updated definition to the bed node
     core.override_item(bed_node, updated_bed_definition)
   end
+    
+core.show_death_screen = function(player, reason)
+end
 
   -- Track when a player dies to determine respawn location
   core.register_on_dieplayer(function(player)
