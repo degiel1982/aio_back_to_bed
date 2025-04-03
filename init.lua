@@ -96,7 +96,7 @@ if not original_bed_respawn_enabled then
     -- Apply the updated definition to the bed node
     core.override_item(bed_node, updated_bed_definition)
   end
-if not aio_back_to_bed.deathscreen then
+if not core.settings:get_bool("aio_back_to_bed.deathscreen") then
     core.show_death_screen = function(player, reason) end
 end
 
