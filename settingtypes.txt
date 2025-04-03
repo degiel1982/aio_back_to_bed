@@ -8,4 +8,4 @@ spawnpoint_msg (When spawnpoint is set) string "Spawnpoint is set"
 enable_spawnpoint_msg (Enable/Disable message) bool true
 bed_detroyed_msg (When a player takes over your bed) string "Your bed have been taken over by an other player"
 enable_bed_detroyed_msg (Enable/Disable message) bool true
-aio_back_to_bed.disable_deathscreen (Enable the death screen)
+aio_back_to_bed.deathscreen (Enable the death screen) bool false
