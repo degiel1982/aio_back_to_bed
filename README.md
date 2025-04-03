@@ -5,7 +5,7 @@ Set your spawn point by right-clicking beds! This mod lets you choose where you 
 ## Features
 - Set your spawn point by right-clicking any bed
 - Bed ownership tracking - if someone takes over your bed, you'll get a warning
-- Respawn to your last bed when you die
+- Automatic respawn, no deathscreen when you die (toggable in the settings)
 - Compatible with the "colorful_beds" mod for more bed options
 
 ## How to Use
