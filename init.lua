@@ -97,7 +97,9 @@ if not original_bed_respawn_enabled then
     core.override_item(bed_node, updated_bed_definition)
   end
 if not core.settings:get_bool("aio_back_to_bed.deathscreen") then
-    core.show_death_screen = function(player, reason) end
+    core.show_death_screen = function(player, reason) 
+        player:respawn()
+        end
 end
 
   -- Track when a player dies to determine respawn location
