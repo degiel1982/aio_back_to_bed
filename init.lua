@@ -7,7 +7,7 @@ local original_bed_respawn_enabled = core.settings:get_bool("enable_bed_respawn"
 -- Retrieve custom messages from the mod's configuration file or use defaults
 local SET_SPAWN_MESSAGE = core.settings:get("spawnpoint_msg") or "Your spawn point is now set"
 local BED_TAKEN_OVER_MESSAGE = core.settings:get("bed_detroyed_msg") or "Your bed has been taken over by another player"
-
+local DEATH_SCREEN = core.settings:get_bool("aio_back_to_bed.deathscreen") or false
 -- Key suffix used to track if a player has died
 local DIED_FLAG_KEY_SUFFIX = "_died"
 local function respawn_player(player)
@@ -109,7 +109,7 @@ if not original_bed_respawn_enabled then
     -- Apply the updated definition to the bed node
     core.override_item(bed_node, updated_bed_definition)
   end
-if not core.settings:get_bool("aio_back_to_bed.deathscreen") then
+ if not DEATH_SCREEN then
     core.show_death_screen = function(player, reason) 
       if player:get_hp() == 0 then
         mod_storage:set_string(player:get_player_name() .. DIED_FLAG_KEY_SUFFIX, "true")
